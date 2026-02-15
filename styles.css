@@ -117,6 +117,55 @@ h1 { margin: 0; font-size: 2.2rem; max-width: 900px; line-height: 1.15; }
   color: #1d4ed8;
 }
 
+.how-strip,
+.faq-strip {
+  max-width: 1200px;
+  margin: 24px auto 0;
+  padding: 0 20px;
+}
+
+.how-strip h2,
+.faq-strip h2 {
+  margin: 0 0 12px;
+}
+
+.how-grid,
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.how-item,
+.faq-grid article {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.how-item span {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #e0e7ff;
+  color: #3730a3;
+  display: inline-grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.how-item h3,
+.faq-grid h3 {
+  margin: 10px 0 6px;
+}
+
+.how-item p,
+.faq-grid p {
+  margin: 0;
+  color: #475569;
+}
+
 .section-head { margin-bottom: 14px; }
 .section-head h2 { margin: 0 0 4px; }
 .section-head p { margin: 0; color: var(--muted); }
@@ -316,6 +365,16 @@ h1 { margin: 0; font-size: 2.2rem; max-width: 900px; line-height: 1.15; }
   .proof-strip {
     grid-template-columns: 1fr;
     padding: 0 12px;
+  }
+
+  .how-strip,
+  .faq-strip {
+    padding: 0 12px;
+  }
+
+  .how-grid,
+  .faq-grid {
+    grid-template-columns: 1fr;
   }
 
   .layout {

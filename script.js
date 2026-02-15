@@ -304,6 +304,7 @@ async function submitWaitlist(event) {
   }
 
   $('#waitlistEmail').value = '';
+  $('#waitlistSuccess').textContent = 'Perfetto! Ti avviseremo appena disponibile e riceverai il 50% di sconto per i primi 3 mesi.';
   $('#waitlistSuccess').classList.remove('hidden');
 }
 
@@ -327,7 +328,7 @@ function attachUI() {
   const howButton = $('#heroHowBtn');
   if (howButton) {
     howButton.addEventListener('click', () => {
-      const target = $('#valueSection');
+      const target = $('#howSection');
       if (!target) return;
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
