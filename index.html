@@ -35,6 +35,12 @@
       </article>
     </section>
 
+    <section class="proof-strip" aria-label="vantaggi principali">
+      <div class="proof-item"><strong>+35%</strong> richieste gestite automaticamente</div>
+      <div class="proof-item"><strong>-60%</strong> tempo operativo su attività ripetitive</div>
+      <div class="proof-item"><strong>Setup rapido</strong> e personalizzazione sul tuo business</div>
+    </section>
+
     <section id="catalogPage" class="agents-wrapper">
       <div class="section-head">
         <h2>Scegli il tuo agente</h2>
@@ -78,8 +84,14 @@
   <div id="buyModal" class="modal hidden" aria-hidden="true">
     <div class="modal-panel">
       <button class="close" id="closeBuy">✕</button>
-      <h2>Non disponibile</h2>
-      <p>A causa dell'alto traffico, questo agente non è più disponibile.</p>
+      <h2>Alta richiesta per <span id="modalAgentName">questo agente</span></h2>
+      <p>Lascia la tua email: ti avviseremo appena torna disponibile e riceverai uno sconto dedicato.</p>
+      <form id="waitlistForm" class="waitlist-form">
+        <input id="waitlistEmail" name="email" type="email" placeholder="La tua email" required />
+        <input id="waitlistAgentId" name="agentId" type="hidden" />
+        <button type="submit" class="buy">Avvisami + sconto</button>
+      </form>
+      <p id="waitlistSuccess" class="waitlist-success hidden">Perfetto, richiesta ricevuta. Ti contatteremo appena disponibile.</p>
     </div>
   </div>
 

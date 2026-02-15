@@ -3,7 +3,7 @@ const agents = [
     id: 'customer-01',
     name: 'Customer Care Pro',
     sector: 'Assistenza Clienti',
-    price: 49,
+    price: 245,
     short: 'Gestisce assistenza clienti a 360°.',
     problems: [
       'Risponde automaticamente a email e recensioni',
@@ -18,7 +18,7 @@ const agents = [
     id: 'sales-01',
     name: 'Sales Booster',
     sector: 'Vendite',
-    price: 59,
+    price: 295,
     short: 'Automatizza pipeline e chiusura vendite.',
     problems: [
       'Prioritizza lead caldi',
@@ -33,7 +33,7 @@ const agents = [
     id: 'marketing-01',
     name: 'Marketing Suite',
     sector: 'Marketing',
-    price: 55,
+    price: 275,
     short: 'Gestione completa campagne e contenuti.',
     problems: [
       'Crea e programma campagne multicanale',
@@ -48,7 +48,7 @@ const agents = [
     id: 'admin-01',
     name: 'Office Manager AI',
     sector: 'Amministrazione',
-    price: 39,
+    price: 195,
     short: 'Supporto amministrativo e organizzativo.',
     problems: [
       'Gestisce appuntamenti e calendario',
@@ -63,7 +63,7 @@ const agents = [
     id: 'restaurant-01',
     name: 'RistoBot',
     sector: 'Ristorazione',
-    price: 45,
+    price: 225,
     short: 'Gestione completa per ristoranti e locali.',
     problems: [
       'Gestisce prenotazioni e tavoli',
@@ -78,7 +78,7 @@ const agents = [
     id: 'hr-01',
     name: 'HR Assistant',
     sector: 'Risorse Umane',
-    price: 39,
+    price: 195,
     short: 'Gestione selezione, onboarding e clima.',
     problems: [
       'Screening CV e pre-colloqui automatici',
@@ -93,7 +93,7 @@ const agents = [
     id: 'it-01',
     name: 'IT Guardian',
     sector: 'IT & Sicurezza',
-    price: 45,
+    price: 225,
     short: 'Protegge e ottimizza l’infrastruttura IT.',
     problems: [
       'Monitoraggio sicurezza e backup',
@@ -108,7 +108,7 @@ const agents = [
     id: 'finance-01',
     name: 'Finance Helper',
     sector: 'Finanza',
-    price: 39,
+    price: 195,
     short: 'Gestione finanze e previsioni smart.',
     problems: [
       'Previsioni di cassa e alert scadenze',
@@ -122,6 +122,8 @@ const agents = [
 ];
 
 const CLICKS_KEY = 'agentClicks_v1';
+const WAITLIST_KEY = 'waitlistEmails_v1';
+const WAITLIST_ENDPOINT = 'https://formsubmit.co/ajax/prota296@gmail.com';
 let currentSector = null;
 
 function $(selector) {
@@ -155,7 +157,7 @@ function renderAgents() {
       </div>
       <div class="agent-desc">${agent.short}</div>
       <div class="agent-footer">
-        <div class="price">€${agent.price}/mese</div>
+        <div class="price">€${agent.price.toLocaleString('it-IT')}/mese</div>
         <button class="buy" data-id="${agent.id}">Dettagli</button>
       </div>
     `;
@@ -215,7 +217,7 @@ function openDetailsPage(agentId) {
   $('#detailTitle').textContent = agent.name;
   $('#detailDescription').textContent = agent.short;
   $('#detailHow').textContent = agent.how;
-  $('#detailPrice').textContent = `€${agent.price}/mese`;
+  $('#detailPrice').textContent = `€${agent.price.toLocaleString('it-IT')}/mese`;
 
   const problemsList = $('#detailProblems');
   problemsList.innerHTML = '';
@@ -245,12 +247,64 @@ function incrementClick(agentId) {
 }
 
 function openBuyModal(agentId) {
+  const agent = agents.find((item) => item.id === agentId);
   incrementClick(agentId);
+  $('#waitlistAgentId').value = agentId;
+  $('#modalAgentName').textContent = agent ? agent.name : 'questo agente';
+  $('#waitlistSuccess').classList.add('hidden');
   $('#buyModal').classList.remove('hidden');
 }
 
 function closeBuyModal() {
   $('#buyModal').classList.add('hidden');
+}
+
+function saveWaitlistLocal(payload) {
+  const raw = localStorage.getItem(WAITLIST_KEY);
+  const current = raw ? JSON.parse(raw) : [];
+  current.push(payload);
+  localStorage.setItem(WAITLIST_KEY, JSON.stringify(current));
+}
+
+async function submitWaitlist(event) {
+  event.preventDefault();
+  const email = $('#waitlistEmail').value.trim();
+  const agentId = $('#waitlistAgentId').value;
+  if (!email || !agentId) return;
+
+  const agent = agents.find((item) => item.id === agentId);
+  const payload = {
+    email,
+    agentId,
+    agentName: agent ? agent.name : agentId,
+    createdAt: new Date().toISOString()
+  };
+
+  saveWaitlistLocal(payload);
+
+  try {
+    const response = await fetch(WAITLIST_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        email,
+        agente: payload.agentName,
+        messaggio: `Richiesta disponibilità + sconto per ${payload.agentName}`,
+        _subject: `Nuova richiesta waitlist - ${payload.agentName}`
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Invio endpoint non riuscito');
+    }
+  } catch (error) {
+    const subject = encodeURIComponent(`Richiesta waitlist - ${payload.agentName}`);
+    const body = encodeURIComponent(`Email: ${email}\nAgente: ${payload.agentName}\nData: ${payload.createdAt}`);
+    window.open(`mailto:prota296@gmail.com?subject=${subject}&body=${body}`, '_blank');
+  }
+
+  $('#waitlistEmail').value = '';
+  $('#waitlistSuccess').classList.remove('hidden');
 }
 
 function attachUI() {
@@ -291,6 +345,11 @@ function attachUI() {
   const closeBuyButton = $('#closeBuy');
   if (closeBuyButton) {
     closeBuyButton.addEventListener('click', closeBuyModal);
+  }
+
+  const waitlistForm = $('#waitlistForm');
+  if (waitlistForm) {
+    waitlistForm.addEventListener('submit', submitWaitlist);
   }
 }
 
