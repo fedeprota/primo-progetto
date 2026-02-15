@@ -130,7 +130,7 @@ const agents = [
     id: 'logistics-01',
     name: 'Logistics Optimizer',
     sector: 'Logistica',
-    price: 39,
+    price: 89,
     short: 'Ottimizza consegne, scorte e percorsi.',
     problems: [
       'Gestione scorte e riordini automatici',
