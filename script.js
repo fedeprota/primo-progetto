@@ -1,10 +1,10 @@
-<<<<<<< HEAD
+
 // ...script.js completo come nella versione aggiornata, con agenti, sidebar, badge click, modali, tracking...
 // Per motivi di spazio, se vuoi il codice completo chiedi "mostrami tutto lo script.js".
 // Qui inserisco la struttura base e la funzione di avvio:
 
 // ...inserire qui il codice completo fornito in precedenza...
-=======
+
 const agents = [
   {id:'marketing-01',name:'Marketing Maestro',sector:'Marketing',price:2490,short:'Automatizza campagne e ottimizza ROI.',problems:['Bassa conversione','Spesa pubblicitaria inefficiente'],how:'Analizza canali e creatività per suggerire campagne ottimizzate.'},
   {id:'marketing-02',name:'Content Catalyst',sector:'Marketing',price:990,short:'Genera calendar editoriali e copy di prova.',problems:['Mancanza di contenuti','Incoerenza brand'],how:'Produce idee, copy e brief per team creativi.'},
@@ -145,11 +145,10 @@ function openDetails(agentId){
 function closeDetails(){ $('#detailsModal').classList.add('hidden') }
 
 function openBuy(agentId){
-  // increment click metric even before email
+  // increment click metric anche se non visibile
   incrementClick(agentId);
   updateCardBadge(agentId);
   updateTotal();
-  $('#emailAgentId').value = agentId;
   $('#buyModal').classList.remove('hidden');
 }
 
@@ -188,17 +187,7 @@ function attachUI(){
   $('#buyBtn').addEventListener('click', ()=>{
     const id = $('#buyBtn').dataset.id; openBuy(id);
   });
-  document.getElementById('emailForm').addEventListener('submit', e=>{
-    e.preventDefault();
-    const mail = $('#emailInput').value.trim();
-    const aid = $('#emailAgentId').value;
-    if(!mail) return;
-    saveEmail(aid, mail);
-    $('#emailInput').value = '';
-    closeBuy();
-    alert('Grazie — verrai contattato quando disponibile.');
-  });
-
+  // Rimosso form email: ora solo messaggio test
   $('#openStats').addEventListener('click', showStats);
   $('#closeStats').addEventListener('click', ()=>$('#statsPanel').classList.add('hidden'));
   $('#exportCsv').addEventListener('click', exportCsv);
@@ -239,4 +228,3 @@ function exportCsv(){
 }
 
 window.addEventListener('load', init);
->>>>>>> c3d49d6deced836faa76832356da1e1b2cee41e5
