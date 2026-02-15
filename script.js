@@ -58,22 +58,6 @@ const agents = [
     price: 39,
     short: 'Supporto amministrativo e organizzativo.',
     problems: [
-        },
-        {
-          id: 'restaurant-01',
-          name: 'RistoBot',
-          sector: 'Ristorazione',
-          price: 45,
-          short: 'Gestione completa per ristoranti e locali.',
-          problems: [
-            'Gestisce prenotazioni e tavoli',
-            'Risponde a recensioni e richieste',
-            'Invia promozioni a clienti abituali',
-            'Ottimizza turni staff e ordini',
-            'Monitora feedback e suggerisce miglioramenti'
-          ],
-          how: 'Automatizza prenotazioni, risposte, promozioni, gestione staff e analisi feedback.'
-        },
       'Gestisce appuntamenti e calendario',
       'Invia promemoria e documenti',
       'Organizza riunioni e prenotazioni',
@@ -83,10 +67,25 @@ const agents = [
     how: 'Automatizza la gestione di appuntamenti, scadenze, documenti e report.'
   },
   {
+    id: 'restaurant-01',
+    name: 'RistoBot',
+    sector: 'Ristorazione',
+    price: 45,
+    short: 'Gestione completa per ristoranti e locali.',
+    problems: [
+      'Gestisce prenotazioni e tavoli',
+      'Risponde a recensioni e richieste',
+      'Invia promozioni a clienti abituali',
+      'Ottimizza turni staff e ordini',
+      'Monitora feedback e suggerisce miglioramenti'
+    ],
+    how: 'Automatizza prenotazioni, risposte, promozioni, gestione staff e analisi feedback.'
+  },
+  {
     id: 'hr-01',
     name: 'HR Assistant',
     sector: 'Risorse Umane',
-    price: 1890,
+    price: 39,
     short: 'Gestione selezione, onboarding e clima.',
     problems: [
       'Screening CV e pre-colloqui automatici',
@@ -101,7 +100,7 @@ const agents = [
     id: 'it-01',
     name: 'IT Guardian',
     sector: 'IT & Sicurezza',
-    price: 2090,
+    price: 45,
     short: 'Protegge e ottimizza l’infrastruttura IT.',
     problems: [
       'Monitoraggio sicurezza e backup',
@@ -116,7 +115,7 @@ const agents = [
     id: 'finance-01',
     name: 'Finance Helper',
     sector: 'Finanza',
-    price: 1990,
+    price: 39,
     short: 'Gestione finanze e previsioni smart.',
     problems: [
       'Previsioni di cassa e alert scadenze',
@@ -131,7 +130,7 @@ const agents = [
     id: 'logistics-01',
     name: 'Logistics Optimizer',
     sector: 'Logistica',
-    price: 1890,
+    price: 39,
     short: 'Ottimizza consegne, scorte e percorsi.',
     problems: [
       'Gestione scorte e riordini automatici',
