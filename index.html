@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Agenti AI per Decision Maker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>Agenti AI per decisori aziendali</h1>
+      <p class="subtitle">Mostra, misura interesse e raccogli contatti — tutto in pochi clic.</p>
+      <div class="stats-controls">
+        <div id="totalBuys">Acquisti: 0</div>
+        <button id="openStats">Visualizza statistiche</button>
+        <button id="exportCsv">Esporta CSV</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="agents-wrapper">
+      <div class="layout">
+        <aside class="sidebar">
+          <h3>Settori</h3>
+          <nav id="sectorsList" class="sectors-list"></nav>
+        </aside>
+        <div class="main">
+          <div id="agentsGrid" class="agents-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <small>Prototipo dimostrativo — clics tracciati localmente.</small>
+  </footer>
+  <!-- Details modal -->
+  <div id="detailsModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="close" id="closeDetails">✕</button>
+      <h2 id="modalTitle">Agente</h2>
+      <p id="modalSector" class="muted"></p>
+      <p id="modalDesc"></p>
+      <h3>Cosa risolve</h3>
+      <ul id="modalProblems"></ul>
+      <h3>Come funziona</h3>
+      <p id="modalHow"></p>
+      <div class="modal-actions">
+        <div class="price" id="modalPrice">€0</div>
+        <button id="buyBtn" class="buy">Compra</button>
+      </div>
+    </div>
+  </div>
+  <!-- Buy / Email modal -->
+  <div id="buyModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="close" id="closeBuy">✕</button>
+      <h2>Ricevi notifica e sconto</h2>
+      <p>Stiamo ricevendo troppe richieste e al momento non possiamo processare il tuo ordine. Lascia la tua email e ti avviseremo appena disponibile; avrai il 50% di sconto.</p>
+      <form id="emailForm">
+        <input type="email" id="emailInput" placeholder="La tua email" required />
+        <input type="hidden" id="emailAgentId" />
+        <div class="form-actions">
+          <button type="submit">Avvisami</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Stats panel -->
+  <div id="statsPanel" class="stats-panel hidden">
+    <button id="closeStats">Chiudi</button>
+    <h3>Statistiche clic</h3>
+    <div id="statsContent"></div>
+  </div>
+  <script src="script.js" defer></script>
+</body>
+</html>
