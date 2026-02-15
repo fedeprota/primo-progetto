@@ -160,13 +160,7 @@ function renderAgents() {
       </div>
     `;
 
-    const detailsButton = card.querySelector('.buy');
-    detailsButton.addEventListener('click', (event) => {
-      event.stopPropagation();
-      openDetailsPage(agent.id);
-    });
-
-    card.addEventListener('click', () => openDetailsPage(agent.id));
+    card.dataset.agentId = agent.id;
     grid.appendChild(card);
   });
 }
@@ -203,7 +197,7 @@ function renderSectors() {
     const item = document.createElement('button');
     item.className = `sector-item${currentSector === sector.name ? ' active' : ''}`;
     item.type = 'button';
-    item.textContent = `${sector.name} (${sector.count})`;
+    item.textContent = sector.name;
     item.addEventListener('click', () => {
       currentSector = sector.name;
       renderSectors();
@@ -260,9 +254,29 @@ function closeBuyModal() {
 }
 
 function attachUI() {
+  const grid = $('#agentsGrid');
+  if (grid) {
+    grid.addEventListener('click', (event) => {
+      const card = event.target.closest('.agent-card');
+      if (!card) return;
+      const id = card.dataset.agentId;
+      if (!id) return;
+      openDetailsPage(id);
+    });
+  }
+
   const backButton = $('#backToCatalog');
   if (backButton) {
     backButton.addEventListener('click', closeDetailsPage);
+  }
+
+  const howButton = $('#heroHowBtn');
+  if (howButton) {
+    howButton.addEventListener('click', () => {
+      const target = $('#valueSection');
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 
   const detailBuyButton = $('#detailBuyBtn');
