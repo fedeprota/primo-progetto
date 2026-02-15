@@ -1,10 +1,3 @@
-
-// ...script.js completo come nella versione aggiornata, con agenti, sidebar, badge click, modali, tracking...
-// Per motivi di spazio, se vuoi il codice completo chiedi "mostrami tutto lo script.js".
-// Qui inserisco la struttura base e la funzione di avvio:
-
-// ...inserire qui il codice completo fornito in precedenza...
-
 const agents = [
   {
     id: 'customer-01',
@@ -125,191 +118,166 @@ const agents = [
       'Simulazione scenari finanziari'
     ],
     how: 'Automatizza report, previsioni, alert e ottimizzazione costi.'
-  },
-  {
-    id: 'logistics-01',
-    name: 'Logistics Optimizer',
-    sector: 'Logistica',
-    price: 89,
-    short: 'Ottimizza consegne, scorte e percorsi.',
-    problems: [
-      'Gestione scorte e riordini automatici',
-      'Ottimizzazione percorsi consegna',
-      'Monitoraggio spedizioni e tracking',
-      'Previsione ritardi e alert',
-      'Analisi costi trasporto'
-    ],
-    how: 'Automatizza riordini, ottimizza percorsi, monitora spedizioni e segnala ritardi.'
   }
 ];
 
-// Storage keys
-const CLICKS_KEY = 'agentClicks_v1'
-const EMAILS_KEY = 'agentEmails_v1'
-
+const CLICKS_KEY = 'agentClicks_v1';
 let currentSector = null;
 
-function $(sel){return document.querySelector(sel)}
-function $all(sel){return document.querySelectorAll(sel)}
+function $(selector) {
+  return document.querySelector(selector);
+}
 
-function init(){
-  renderAgents();
+function init() {
   renderSectors();
-  updateTotal();
+  renderAgents();
   attachUI();
 }
 
-function renderAgents(){
+function renderAgents() {
   const grid = $('#agentsGrid');
+  if (!grid) return;
+
   grid.innerHTML = '';
-  const clicks = getClicks();
-  agents.forEach(a=>{
-    if(currentSector && a.sector !== currentSector) return;
-    const card = document.createElement('div');
+
+  agents.forEach((agent) => {
+    if (currentSector && agent.sector !== currentSector) return;
+
+    const card = document.createElement('article');
     card.className = 'agent-card';
     card.innerHTML = `
       <div class="agent-top">
-        <div class="agent-icon">${a.name.split(' ').map(w=>w[0]).slice(0,2).join('')}</div>
+        <div class="agent-icon">${agent.name.split(' ').map((part) => part[0]).slice(0, 2).join('')}</div>
         <div>
-          <div class="agent-title">${a.name}</div>
-          <div class="agent-sector">${a.sector}</div>
+          <div class="agent-title">${agent.name}</div>
+          <div class="agent-sector">${agent.sector}</div>
         </div>
       </div>
-      <div class="agent-desc">${a.short}</div>
+      <div class="agent-desc">${agent.short}</div>
       <div class="agent-footer">
-        <div class="price">€${a.price.toLocaleString()}/mese</div>
-        <div class="card-right">
-          <div class="click-badge" data-id="${a.id}">${clicks[a.id]||0}</div>
-          <button class="buy small" data-id="${a.id}">Dettagli</button>
-        </div>
-      </div>`;
-    const btn = card.querySelector('.buy');
-    btn.addEventListener('click', (ev)=>{ ev.stopPropagation(); openDetails(a.id); });
-    card.addEventListener('click', ()=>openDetails(a.id));
+        <div class="price">€${agent.price}/mese</div>
+        <button class="buy" data-id="${agent.id}">Dettagli</button>
+      </div>
+    `;
+
+    const detailsButton = card.querySelector('.buy');
+    detailsButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      openDetailsPage(agent.id);
+    });
+
+    card.addEventListener('click', () => openDetailsPage(agent.id));
     grid.appendChild(card);
-  })
+  });
 }
 
-function getSectors(){
-  const map = {};
-  agents.forEach(a=>{ map[a.sector] = (map[a.sector]||0)+1 });
-  return Object.keys(map).sort().map(s=>({name:s,count:map[s]}));
+function getSectors() {
+  const counts = {};
+  agents.forEach((agent) => {
+    counts[agent.sector] = (counts[agent.sector] || 0) + 1;
+  });
+
+  return Object.keys(counts)
+    .sort()
+    .map((name) => ({ name, count: counts[name] }));
 }
 
-function renderSectors(){
+function renderSectors() {
   const list = $('#sectorsList');
+  if (!list) return;
+
   list.innerHTML = '';
-  const allBtn = document.createElement('div');
-  allBtn.className = 'sector-item' + (currentSector? '': ' active');
-  allBtn.textContent = 'Tutti i settori';
-  allBtn.addEventListener('click', ()=>{ currentSector = null; renderSectors(); renderAgents(); });
-  list.appendChild(allBtn);
-  getSectors().forEach(s=>{
-    const el = document.createElement('div');
-    el.className = 'sector-item' + (currentSector===s.name? ' active':'');
-    el.textContent = `${s.name} (${s.count})`;
-    el.addEventListener('click', ()=>{ currentSector = s.name; renderSectors(); renderAgents(); });
-    list.appendChild(el);
-  })
+
+  const allItem = document.createElement('button');
+  allItem.className = `sector-item${currentSector ? '' : ' active'}`;
+  allItem.type = 'button';
+  allItem.textContent = 'Tutti i settori';
+  allItem.addEventListener('click', () => {
+    currentSector = null;
+    renderSectors();
+    renderAgents();
+  });
+  list.appendChild(allItem);
+
+  getSectors().forEach((sector) => {
+    const item = document.createElement('button');
+    item.className = `sector-item${currentSector === sector.name ? ' active' : ''}`;
+    item.type = 'button';
+    item.textContent = `${sector.name} (${sector.count})`;
+    item.addEventListener('click', () => {
+      currentSector = sector.name;
+      renderSectors();
+      renderAgents();
+    });
+    list.appendChild(item);
+  });
 }
 
-function openDetails(agentId){
-  const a = agents.find(x=>x.id===agentId);
-  if(!a) return;
-  $('#modalTitle').textContent = a.name;
-  $('#modalSector').textContent = a.sector;
-  $('#modalDesc').textContent = a.short;
-  $('#modalHow').textContent = a.how;
-  $('#modalPrice').textContent = `€${a.price.toLocaleString()}/mese`;
-  const ul = $('#modalProblems'); ul.innerHTML = '';
-  a.problems.forEach(p=>{const li=document.createElement('li'); li.textContent=p; ul.appendChild(li)});
-  $('#buyBtn').dataset.id = a.id;
-  $('#detailsModal').classList.remove('hidden');
+function openDetailsPage(agentId) {
+  const agent = agents.find((item) => item.id === agentId);
+  if (!agent) return;
+
+  $('#detailSector').textContent = agent.sector;
+  $('#detailTitle').textContent = agent.name;
+  $('#detailDescription').textContent = agent.short;
+  $('#detailHow').textContent = agent.how;
+  $('#detailPrice').textContent = `€${agent.price}/mese`;
+
+  const problemsList = $('#detailProblems');
+  problemsList.innerHTML = '';
+  agent.problems.forEach((problem) => {
+    const li = document.createElement('li');
+    li.textContent = problem;
+    problemsList.appendChild(li);
+  });
+
+  $('#detailBuyBtn').dataset.id = agent.id;
+
+  $('#catalogPage').classList.add('hidden');
+  $('#detailsPage').classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function closeDetails(){ $('#detailsModal').classList.add('hidden') }
+function closeDetailsPage() {
+  $('#detailsPage').classList.add('hidden');
+  $('#catalogPage').classList.remove('hidden');
+}
 
-function openBuy(agentId){
-  // increment click metric anche se non visibile
+function incrementClick(agentId) {
+  const raw = localStorage.getItem(CLICKS_KEY);
+  const current = raw ? JSON.parse(raw) : {};
+  current[agentId] = (current[agentId] || 0) + 1;
+  localStorage.setItem(CLICKS_KEY, JSON.stringify(current));
+}
+
+function openBuyModal(agentId) {
   incrementClick(agentId);
-  updateCardBadge(agentId);
-  updateTotal();
   $('#buyModal').classList.remove('hidden');
 }
 
-function closeBuy(){ $('#buyModal').classList.add('hidden') }
-
-function incrementClick(agentId){
-  const raw = localStorage.getItem(CLICKS_KEY);
-  const obj = raw ? JSON.parse(raw) : {};
-  obj[agentId] = (obj[agentId]||0)+1;
-  localStorage.setItem(CLICKS_KEY, JSON.stringify(obj));
+function closeBuyModal() {
+  $('#buyModal').classList.add('hidden');
 }
 
-function updateCardBadge(agentId){
-  const el = document.querySelector(`.click-badge[data-id="${agentId}"]`);
-  if(el){
-    const clicks = getClicks();
-    el.textContent = clicks[agentId] || 0;
+function attachUI() {
+  const backButton = $('#backToCatalog');
+  if (backButton) {
+    backButton.addEventListener('click', closeDetailsPage);
   }
-}
 
-function getClicks(){
-  const raw = localStorage.getItem(CLICKS_KEY);
-  return raw ? JSON.parse(raw) : {};
-}
+  const detailBuyButton = $('#detailBuyBtn');
+  if (detailBuyButton) {
+    detailBuyButton.addEventListener('click', () => {
+      const id = detailBuyButton.dataset.id;
+      if (!id) return;
+      openBuyModal(id);
+    });
+  }
 
-function saveEmail(agentId, email){
-  const raw = localStorage.getItem(EMAILS_KEY);
-  const arr = raw ? JSON.parse(raw) : [];
-  arr.push({agentId,email,t:Date.now()});
-  localStorage.setItem(EMAILS_KEY, JSON.stringify(arr));
-}
-
-function attachUI(){
-  $('#closeDetails').addEventListener('click', closeDetails);
-  $('#closeBuy').addEventListener('click', closeBuy);
-  $('#buyBtn').addEventListener('click', ()=>{
-    const id = $('#buyBtn').dataset.id; openBuy(id);
-  });
-  // Rimosso form email: ora solo messaggio test
-  $('#openStats').addEventListener('click', showStats);
-  $('#closeStats').addEventListener('click', ()=>$('#statsPanel').classList.add('hidden'));
-  $('#exportCsv').addEventListener('click', exportCsv);
-}
-
-function updateTotal(){
-  const clicks = getClicks();
-  const total = Object.values(clicks).reduce((s,v)=>s+v,0);
-  $('#totalBuys').textContent = `Acquisti: ${total}`;
-}
-
-function showStats(){
-  const clicks = getClicks();
-  const emails = JSON.parse(localStorage.getItem(EMAILS_KEY) || '[]');
-  const content = $('#statsContent');
-  content.innerHTML = '';
-  const t = document.createElement('div');
-  t.innerHTML = '<strong>Clic per agente:</strong>';
-  const ul = document.createElement('ul');
-  agents.forEach(a=>{const li=document.createElement('li'); li.textContent = `${a.name}: ${clicks[a.id]||0}`; ul.appendChild(li)});
-  t.appendChild(ul);
-  const em = document.createElement('div'); em.style.marginTop='12px'; em.innerHTML = `<strong>Email raccolte:</strong> (${emails.length})`;
-  const emul = document.createElement('ul'); emails.slice().reverse().forEach(e=>{const li=document.createElement('li'); li.textContent = `${e.email} — ${e.agentId} — ${new Date(e.t).toLocaleString()}`; emul.appendChild(li)});
-  content.appendChild(t); content.appendChild(em); content.appendChild(emul);
-  $('#statsPanel').classList.remove('hidden');
-}
-
-function exportCsv(){
-  const clicks = getClicks();
-  const emails = JSON.parse(localStorage.getItem(EMAILS_KEY) || '[]');
-  let csv = 'agentId,agentName,clicks\n';
-  agents.forEach(a=>{csv += `${a.id},"${a.name}",${clicks[a.id]||0}\n`});
-  csv += '\nEMAILS\nagentId,email,timestamp\n';
-  emails.forEach(e=>{csv += `${e.agentId},${e.email},${new Date(e.t).toISOString()}\n`});
-  const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'agent-stats.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  const closeBuyButton = $('#closeBuy');
+  if (closeBuyButton) {
+    closeBuyButton.addEventListener('click', closeBuyModal);
+  }
 }
 
 window.addEventListener('load', init);

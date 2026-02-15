@@ -3,23 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Agenti AI per Decision Maker</title>
+  <title>Catalogo Agenti AI</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <h1>Agenti AI per decisori aziendali</h1>
-      <p class="subtitle">Mostra, misura interesse e raccogli contatti — tutto in pochi clic.</p>
-      <div class="stats-controls">
-        <div id="totalBuys">Acquisti: 0</div>
-        <button id="openStats">Visualizza statistiche</button>
-        <button id="exportCsv">Esporta CSV</button>
-      </div>
+      <h1>Agenti AI per la tua attività</h1>
+      <p class="subtitle">Scegli un settore, esplora gli agenti e apri i dettagli.</p>
     </div>
   </header>
+
   <main>
-    <section class="agents-wrapper">
+    <section id="catalogPage" class="agents-wrapper">
       <div class="layout">
         <aside class="sidebar">
           <h3>Settori</h3>
@@ -30,30 +26,34 @@
         </div>
       </div>
     </section>
+
+    <section id="detailsPage" class="details-page hidden" aria-live="polite">
+      <div class="details-container">
+        <button id="backToCatalog" class="back-btn">← Torna al catalogo</button>
+        <div class="details-card">
+          <p id="detailSector" class="detail-sector"></p>
+          <h2 id="detailTitle">Agente</h2>
+          <p id="detailDescription" class="detail-description"></p>
+
+          <h3>Funzioni principali</h3>
+          <p id="detailHow"></p>
+
+          <h3>Problemi che risolve</h3>
+          <ul id="detailProblems"></ul>
+
+          <div class="details-actions">
+            <div id="detailPrice" class="price"></div>
+            <button id="detailBuyBtn" class="buy">Compra</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
   <footer class="site-footer">
-    <small>Prototipo dimostrativo — clics tracciati localmente.</small>
+    <small>Prototipo dimostrativo</small>
   </footer>
 
-  <!-- Details modal -->
-  <div id="detailsModal" class="modal hidden" aria-hidden="true">
-    <div class="modal-panel">
-      <button class="close" id="closeDetails">✕</button>
-      <h2 id="modalTitle">Agente</h2>
-      <p id="modalSector" class="muted"></p>
-      <p id="modalDesc"></p>
-      <h3>Cosa risolve</h3>
-      <ul id="modalProblems"></ul>
-      <h3>Come funziona</h3>
-      <p id="modalHow"></p>
-      <div class="modal-actions">
-        <div class="price" id="modalPrice">€0</div>
-        <button id="buyBtn" class="buy">Compra</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Buy / Email modal -->
   <div id="buyModal" class="modal hidden" aria-hidden="true">
     <div class="modal-panel">
       <button class="close" id="closeBuy">✕</button>
@@ -62,15 +62,10 @@
     </div>
   </div>
 
-  <!-- Stats panel -->
-  <div id="statsPanel" class="stats-panel hidden">
-    <button id="closeStats">Chiudi</button>
-    <h3>Statistiche clic</h3>
-    <div id="statsContent"></div>
-  </div>
-
   <script src="script.js" defer></script>
 </body>
 </html>
 
-  
+    <h3>Statistiche clic</h3>
+
+    <div id="statsContent"></div>
