@@ -10,7 +10,7 @@ const agents = [
     id: 'customer-01',
     name: 'Customer Care Pro',
     sector: 'Assistenza Clienti',
-    price: 1990,
+    price: 49,
     short: 'Gestisce assistenza clienti a 360°.',
     problems: [
       'Risponde automaticamente a email e recensioni',
@@ -25,7 +25,7 @@ const agents = [
     id: 'sales-01',
     name: 'Sales Booster',
     sector: 'Vendite',
-    price: 2290,
+    price: 59,
     short: 'Automatizza pipeline e chiusura vendite.',
     problems: [
       'Prioritizza lead caldi',
@@ -40,7 +40,7 @@ const agents = [
     id: 'marketing-01',
     name: 'Marketing Suite',
     sector: 'Marketing',
-    price: 2190,
+    price: 55,
     short: 'Gestione completa campagne e contenuti.',
     problems: [
       'Crea e programma campagne multicanale',
@@ -55,9 +55,25 @@ const agents = [
     id: 'admin-01',
     name: 'Office Manager AI',
     sector: 'Amministrazione',
-    price: 1790,
+    price: 39,
     short: 'Supporto amministrativo e organizzativo.',
     problems: [
+        },
+        {
+          id: 'restaurant-01',
+          name: 'RistoBot',
+          sector: 'Ristorazione',
+          price: 45,
+          short: 'Gestione completa per ristoranti e locali.',
+          problems: [
+            'Gestisce prenotazioni e tavoli',
+            'Risponde a recensioni e richieste',
+            'Invia promozioni a clienti abituali',
+            'Ottimizza turni staff e ordini',
+            'Monitora feedback e suggerisce miglioramenti'
+          ],
+          how: 'Automatizza prenotazioni, risposte, promozioni, gestione staff e analisi feedback.'
+        },
       'Gestisce appuntamenti e calendario',
       'Invia promemoria e documenti',
       'Organizza riunioni e prenotazioni',
@@ -162,7 +178,7 @@ function renderAgents(){
       </div>
       <div class="agent-desc">${a.short}</div>
       <div class="agent-footer">
-        <div class="price">€${a.price.toLocaleString()}</div>
+        <div class="price">€${a.price.toLocaleString()}/mese</div>
         <div class="card-right">
           <div class="click-badge" data-id="${a.id}">${clicks[a.id]||0}</div>
           <button class="buy small" data-id="${a.id}">Dettagli</button>
@@ -205,9 +221,9 @@ function openDetails(agentId){
   $('#modalSector').textContent = a.sector;
   $('#modalDesc').textContent = a.short;
   $('#modalHow').textContent = a.how;
-  $('#modalPrice').textContent = `€${a.price.toLocaleString()}`;
+  $('#modalPrice').textContent = `€${a.price.toLocaleString()}/mese`;
   const ul = $('#modalProblems'); ul.innerHTML = '';
-  a.problems.forEach(p=>{const li=document.createElement('li'); li.textContent=p; ul.appendChild(li)})
+  a.problems.forEach(p=>{const li=document.createElement('li'); li.textContent=p; ul.appendChild(li)});
   $('#buyBtn').dataset.id = a.id;
   $('#detailsModal').classList.remove('hidden');
 }
