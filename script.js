@@ -229,14 +229,14 @@ function openDetailsPage(agentId) {
 
   $('#detailBuyBtn').dataset.id = agent.id;
 
-  $('#catalogPage').classList.add('hidden');
+  $('#landingContent').classList.add('hidden');
   $('#detailsPage').classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function closeDetailsPage() {
   $('#detailsPage').classList.add('hidden');
-  $('#catalogPage').classList.remove('hidden');
+  $('#landingContent').classList.remove('hidden');
 }
 
 function incrementClick(agentId) {

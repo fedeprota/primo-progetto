@@ -3,121 +3,205 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Catalogo Agenti AI</title>
-  <link rel="stylesheet" href="styles.css?v=20260216-2">
+  <title>Agenti AI per Crescita Business</title>
+  <link rel="stylesheet" href="styles.css?v=20260216-3">
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <p class="eyebrow">AI Automation Studio</p>
-      <h1>Trasforma lead in clienti con agenti AI pronti in pochi giorni</h1>
-      <p class="subtitle">Automatizza assistenza, follow-up, prenotazioni e processi commerciali. Scegli il tuo settore e attiva l’agente più adatto.</p>
-      <div class="hero-actions">
-        <a href="#catalogPage" class="buy hero-cta">Esplora gli agenti</a>
-        <button id="heroHowBtn" class="back-btn" type="button">Come funziona</button>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section id="valueSection" class="value-strip">
-      <article class="value-item">
-        <h3>Più conversioni</h3>
-        <p>Lead qualificati, follow-up automatici e meno occasioni perse.</p>
-      </article>
-      <article class="value-item">
-        <h3>Meno lavoro manuale</h3>
-        <p>Email, recensioni, appuntamenti e richieste gestiti in automatico.</p>
-      </article>
-      <article class="value-item">
-        <h3>Setup rapido</h3>
-        <p>Soluzione test pronta e configurata sul tuo flusso operativo.</p>
-      </article>
-    </section>
-
-    <section class="proof-strip" aria-label="vantaggi principali">
-      <div class="proof-item"><strong>+35%</strong> richieste gestite automaticamente</div>
-      <div class="proof-item"><strong>-60%</strong> tempo operativo su attività ripetitive</div>
-      <div class="proof-item"><strong>Setup rapido</strong> e personalizzazione sul tuo business</div>
-    </section>
-
-    <section class="how-strip" id="howSection">
-      <h2>Come lavoriamo</h2>
-      <div class="how-grid">
-        <article class="how-item">
-          <span>1</span>
-          <h3>Selezione agente</h3>
-          <p>Scegli il settore e l’agente più adatto ai tuoi obiettivi.</p>
-        </article>
-        <article class="how-item">
-          <span>2</span>
-          <h3>Personalizzazione</h3>
-          <p>Adattiamo prompt, automazioni e workflow al tuo business.</p>
-        </article>
-        <article class="how-item">
-          <span>3</span>
-          <h3>Go-live rapido</h3>
-          <p>Attivazione rapida con monitoraggio continuo dei risultati.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="catalogPage" class="agents-wrapper">
-      <div class="section-head">
-        <h2>Scegli il tuo agente</h2>
-        <p>Filtra per settore e clicca Dettagli per vedere funzioni e problemi risolti.</p>
-      </div>
-      <div class="layout">
-        <aside class="sidebar">
-          <h3>Settori</h3>
-          <nav id="sectorsList" class="sectors-list"></nav>
-        </aside>
-        <div class="main">
-          <div id="agentsGrid" class="agents-grid"></div>
+  <main id="landingContent">
+    <section class="hero section" id="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Sezione 1 · Hero</p>
+          <h1>Più clienti, meno caos operativo.</h1>
+          <p class="subtitle">Per attività che vogliono automatizzare vendite, assistenza e processi senza aumentare il team. Scegli il tuo agente AI e attivalo con un piano mensile.</p>
+          <div class="hero-actions">
+            <a href="#catalogPage" class="btn btn-primary">Vedi gli agenti</a>
+            <button id="heroHowBtn" class="btn btn-secondary" type="button">Come funziona</button>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3>Risultato atteso in 30 giorni</h3>
+          <ul>
+            <li>Risposte clienti più rapide</li>
+            <li>Follow-up automatici su lead caldi</li>
+            <li>Riduzione attività ripetitive</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section id="detailsPage" class="details-page hidden" aria-live="polite">
-      <div class="details-container">
-        <button id="backToCatalog" class="back-btn">← Torna al catalogo</button>
-        <div class="details-card">
-          <p id="detailSector" class="detail-sector"></p>
-          <h2 id="detailTitle">Agente</h2>
-          <p id="detailDescription" class="detail-description"></p>
+    <section class="section trust-strip" id="trust-strip">
+      <div class="container trust-grid">
+        <article><strong>120+</strong><span>flussi AI testati</span></article>
+        <article><strong>35%</strong><span>in più lead gestiti</span></article>
+        <article><strong>60%</strong><span>tempo operativo risparmiato</span></article>
+        <article><strong>7 giorni</strong><span>media primo setup</span></article>
+      </div>
+    </section>
 
-          <h3>Funzioni principali</h3>
-          <p id="detailHow"></p>
+    <section class="section" id="emotional-reframe">
+      <div class="container text-block">
+        <p class="eyebrow">Sezione 3 · Emotional Reframe</p>
+        <h2>Non è colpa tua se lavori tanto e cresce il disordine.</h2>
+        <p>Hai già provato strumenti, task list e nuove routine. Il problema è che senza architettura operativa, ogni nuovo lead aggiunge complessità. Prima progettiamo il flusso, poi lo automatizziamo.</p>
+      </div>
+    </section>
 
-          <h3>Problemi che risolve</h3>
-          <ul id="detailProblems"></ul>
+    <section class="section" id="problem-mirror">
+      <div class="container">
+        <p class="eyebrow">Sezione 4 · Problem Mirror</p>
+        <h2>Ti riconosci in uno di questi scenari?</h2>
+        <ul class="bullet-grid">
+          <li>Le richieste clienti restano in sospeso troppo a lungo</li>
+          <li>Le vendite dipendono sempre da interventi manuali</li>
+          <li>I lead non vengono ricontattati con costanza</li>
+          <li>Ogni persona del team usa strumenti diversi</li>
+          <li>Le recensioni negative non vengono gestite in tempo</li>
+          <li>Ti manca una vista unica su cosa sta funzionando</li>
+        </ul>
+      </div>
+    </section>
 
-          <div class="details-actions">
-            <div id="detailPrice" class="price"></div>
-            <button id="detailBuyBtn" class="buy">Compra</button>
+    <section class="section" id="consequences">
+      <div class="container text-block warning">
+        <p class="eyebrow">Sezione 5 · Consequences</p>
+        <h2>Cosa succede se nulla cambia?</h2>
+        <p>Perdi opportunità già pagate in ads, aumentano i tempi di risposta e la fiducia cala. Ogni mese di attesa costa lead, margine e reputazione.</p>
+      </div>
+    </section>
+
+    <section class="section" id="false-solutions">
+      <div class="container">
+        <p class="eyebrow">Sezione 6 · False Solutions</p>
+        <h2>Cosa di solito non funziona</h2>
+        <div class="cards-3">
+          <article><h3>Assumere di più</h3><p>Aumenta i costi prima di risolvere il collo di bottiglia.</p></article>
+          <article><h3>Aggiungere tool</h3><p>Moltiplica le integrazioni, non la chiarezza operativa.</p></article>
+          <article><h3>Automazioni isolate</h3><p>Senza strategia, automatizzi il caos invece di eliminarlo.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="differentiator">
+      <div class="container text-block highlight">
+        <p class="eyebrow">Sezione 7 · Core Differentiator</p>
+        <h2>Il nostro approccio: prima architettura, poi automazione.</h2>
+        <p>Un agente AI non è solo “rispondere ai messaggi”. È una sequenza di trigger, priorità, eccezioni e follow-up che replica il tuo metodo commerciale in modo coerente.</p>
+      </div>
+    </section>
+
+    <section class="section" id="catalogPage">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Sezione 8 · Outcomes</p>
+          <h2>Scegli il tuo agente AI</h2>
+          <p>Ogni agente è pensato per un risultato concreto: più conversioni, più efficienza, meno attività manuali.</p>
+        </div>
+        <div class="layout">
+          <aside class="sidebar">
+            <h3>Settori</h3>
+            <nav id="sectorsList" class="sectors-list"></nav>
+          </aside>
+          <div class="main">
+            <div id="agentsGrid" class="agents-grid"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="faq-strip">
-      <h2>Domande frequenti</h2>
-      <div class="faq-grid">
-        <article>
-          <h3>In quanto tempo posso partire?</h3>
-          <p>In genere in pochi giorni lavorativi, in base al livello di personalizzazione.</p>
-        </article>
-        <article>
-          <h3>Posso usarlo con i miei strumenti attuali?</h3>
-          <p>Sì, i flussi vengono progettati per integrarsi con i tool già in uso.</p>
-        </article>
-        <article>
-          <h3>È adatto anche a team piccoli?</h3>
-          <p>Sì, è pensato per liberare tempo operativo anche in team snelli.</p>
-        </article>
+    <section class="section" id="implementation-areas">
+      <div class="container">
+        <p class="eyebrow">Sezione 9 · Implementation Areas</p>
+        <h2>Dove applichiamo l’automazione</h2>
+        <ul class="bullet-grid">
+          <li>Acquisizione lead e pre-qualifica</li>
+          <li>Assistenza clienti e recensioni</li>
+          <li>Prenotazioni e appuntamenti</li>
+          <li>Follow-up commerciale</li>
+          <li>Comunicazioni post-vendita</li>
+          <li>Report operativi e alert</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="howSection">
+      <div class="container">
+        <p class="eyebrow">Sezione 10 · Process</p>
+        <h2>Come funziona in 3 step</h2>
+        <div class="cards-3 process-grid">
+          <article><span>1</span><h3>Analisi</h3><p>Mappiamo il tuo flusso attuale e i punti di perdita.</p></article>
+          <article><span>2</span><h3>Progetto</h3><p>Definiamo logica agente, regole e priorità operative.</p></article>
+          <article><span>3</span><h3>Attivazione</h3><p>Configuriamo e testiamo fino a risultato stabile.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="social-proof">
+      <div class="container">
+        <p class="eyebrow">Sezione 11 · Social Proof</p>
+        <h2>Feedback da business simili al tuo</h2>
+        <div class="cards-3 testimonial-grid">
+          <article><p>“In 6 settimane abbiamo ridotto del 40% i tempi di risposta ai clienti.”</p><small>Marco, owner ristorante</small></article>
+          <article><p>“I lead vengono ricontattati in automatico e il team chiude più trattative.”</p><small>Giulia, consulenza B2B</small></article>
+          <article><p>“Ora abbiamo processi chiari, non solo tool sparsi.”</p><small>Luca, agenzia servizi</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roi-urgency">
+      <div class="container text-block warning">
+        <p class="eyebrow">Sezione 12 · ROI / Urgency</p>
+        <h2>Il costo di aspettare è più alto del costo di agire.</h2>
+        <p>Ogni settimana senza automazione perdi lead già acquisiti, ore del team e opportunità di cross-sell. L’inerzia costa più dell’implementazione.</p>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <p class="eyebrow">Sezione 13 · FAQ</p>
+        <h2>Domande frequenti</h2>
+        <div class="faq-grid">
+          <article><h3>È adatto anche a team piccoli?</h3><p>Sì, soprattutto se vuoi scalare senza assumere subito.</p></article>
+          <article><h3>Quanto tempo richiede?</h3><p>Il setup iniziale è rapido e il carico operativo si riduce progressivamente.</p></article>
+          <article><h3>Serve cambiare tutti i tool?</h3><p>No, lavoriamo sui flussi e integriamo gradualmente dove serve.</p></article>
+          <article><h3>Funziona per la mia nicchia?</h3><p>Partiamo da casi d’uso verticali e adattiamo l’agente al tuo contesto.</p></article>
+          <article><h3>Che rischio ho?</h3><p>Parti in versione test e misuri risultati prima di estendere.</p></article>
+          <article><h3>Quando vedo i primi risultati?</h3><p>Di solito nelle prime settimane su tempi risposta e gestione lead.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-cta" id="final-cta">
+      <div class="container text-block center">
+        <p class="eyebrow">Sezione 14 · Final CTA</p>
+        <h2>Pronto a farti richiamare appena disponibile?</h2>
+        <p>Scegli un agente, apri i dettagli e clicca Compra per entrare nella lista prioritaria.</p>
+        <a href="#catalogPage" class="btn btn-primary">Vai al catalogo</a>
       </div>
     </section>
   </main>
+
+  <section id="detailsPage" class="details-page hidden" aria-live="polite">
+    <div class="container details-container">
+      <button id="backToCatalog" class="btn btn-secondary">← Torna alla landing</button>
+      <div class="details-card">
+        <p id="detailSector" class="detail-sector"></p>
+        <h2 id="detailTitle">Agente</h2>
+        <p id="detailDescription" class="detail-description"></p>
+
+        <h3>Funzioni principali</h3>
+        <p id="detailHow"></p>
+
+        <h3>Problemi che risolve</h3>
+        <ul id="detailProblems"></ul>
+
+        <div class="details-actions">
+          <div id="detailPrice" class="price"></div>
+          <button id="detailBuyBtn" class="btn btn-primary">Compra</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <div id="buyModal" class="modal hidden" aria-hidden="true">
@@ -128,13 +212,13 @@
       <form id="waitlistForm" class="waitlist-form">
         <input id="waitlistEmail" name="email" type="email" placeholder="La tua email" required />
         <input id="waitlistAgentId" name="agentId" type="hidden" />
-        <button type="submit" class="buy">Avvisami + sconto</button>
+        <button type="submit" class="btn btn-primary">Avvisami + 50% sconto</button>
       </form>
       <p id="waitlistSuccess" class="waitlist-success hidden">Perfetto, richiesta ricevuta. Ti contatteremo appena disponibile.</p>
     </div>
   </div>
 
-  <script src="script.js?v=20260216-2" defer></script>
+  <script src="script.js?v=20260216-3" defer></script>
 </body>
 </html>
 
