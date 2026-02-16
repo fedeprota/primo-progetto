@@ -29,3 +29,11 @@ python -m http.server 8000
 
 ## Nota
 - Questa è una demo client-side: i dati rimangono nel browser locale. Per raccolta centralizzata serve un backend.
+
+## Skill di riferimento
+- Le istruzioni per progettare landing page ad alta conversione sono in [skill/sales-landing-page](skill/sales-landing-page).
+- File principali:
+	- [skill/sales-landing-page/SKILL.md](skill/sales-landing-page/SKILL.md)
+	- [skill/sales-landing-page/SECTION-FRAMEWORK.md](skill/sales-landing-page/SECTION-FRAMEWORK.md)
+	- [skill/sales-landing-page/COPYWRITING-PRINCIPLES.md](skill/sales-landing-page/COPYWRITING-PRINCIPLES.md)
+	- [skill/sales-landing-page/CHECKLIST.md](skill/sales-landing-page/CHECKLIST.md)
