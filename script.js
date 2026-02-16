@@ -134,6 +134,7 @@ function init() {
   renderSectors();
   renderAgents();
   attachUI();
+  maybeOpenDetailsFromUrl();
 }
 
 function renderAgents() {
@@ -158,7 +159,7 @@ function renderAgents() {
       <div class="agent-desc">${agent.short}</div>
       <div class="agent-footer">
         <div class="price">€${agent.price.toLocaleString('it-IT')}/mese</div>
-        <button class="buy" data-id="${agent.id}">Dettagli</button>
+        <button class="buy" type="button" aria-label="Apri dettagli ${agent.name}" data-id="${agent.id}">Dettagli</button>
       </div>
     `;
 
@@ -187,6 +188,8 @@ function renderSectors() {
   const allItem = document.createElement('button');
   allItem.className = `sector-item${currentSector ? '' : ' active'}`;
   allItem.type = 'button';
+  allItem.setAttribute('role', 'tab');
+  allItem.setAttribute('aria-selected', currentSector ? 'false' : 'true');
   allItem.textContent = 'Tutti i settori';
   allItem.addEventListener('click', () => {
     currentSector = null;
@@ -199,6 +202,8 @@ function renderSectors() {
     const item = document.createElement('button');
     item.className = `sector-item${currentSector === sector.name ? ' active' : ''}`;
     item.type = 'button';
+    item.setAttribute('role', 'tab');
+    item.setAttribute('aria-selected', currentSector === sector.name ? 'true' : 'false');
     item.textContent = sector.name;
     item.addEventListener('click', () => {
       currentSector = sector.name;
@@ -219,6 +224,22 @@ function openDetailsPage(agentId) {
   $('#detailHow').textContent = agent.how;
   $('#detailPrice').textContent = `€${agent.price.toLocaleString('it-IT')}/mese`;
 
+  const winsList = $('#detailWins');
+  if (winsList) {
+    winsList.innerHTML = '';
+    const topWins = [
+      `Riduce i tempi di risposta in area ${agent.sector}`,
+      `Aumenta la gestione dei lead senza aumentare il team`,
+      `Mantiene follow-up costante con qualità operativa stabile`
+    ];
+
+    topWins.forEach((win) => {
+      const li = document.createElement('li');
+      li.textContent = win;
+      winsList.appendChild(li);
+    });
+  }
+
   const problemsList = $('#detailProblems');
   problemsList.innerHTML = '';
   agent.problems.forEach((problem) => {
@@ -228,6 +249,9 @@ function openDetailsPage(agentId) {
   });
 
   $('#detailBuyBtn').dataset.id = agent.id;
+  const nextUrl = new URL(window.location.href);
+  nextUrl.searchParams.set('agent', agent.id);
+  window.history.replaceState({}, '', nextUrl.toString());
 
   $('#landingContent').classList.add('hidden');
   $('#detailsPage').classList.remove('hidden');
@@ -237,6 +261,25 @@ function openDetailsPage(agentId) {
 function closeDetailsPage() {
   $('#detailsPage').classList.add('hidden');
   $('#landingContent').classList.remove('hidden');
+
+  const nextUrl = new URL(window.location.href);
+  nextUrl.searchParams.delete('agent');
+  window.history.replaceState({}, '', nextUrl.toString());
+}
+
+function maybeOpenDetailsFromUrl() {
+  const url = new URL(window.location.href);
+  const agentId = url.searchParams.get('agent');
+  if (!agentId) return;
+
+  const exists = agents.some((item) => item.id === agentId);
+  if (!exists) {
+    url.searchParams.delete('agent');
+    window.history.replaceState({}, '', url.toString());
+    return;
+  }
+
+  openDetailsPage(agentId);
 }
 
 function incrementClick(agentId) {
@@ -257,6 +300,32 @@ function openBuyModal(agentId) {
 
 function closeBuyModal() {
   $('#buyModal').classList.add('hidden');
+}
+
+function showToast(message) {
+  const root = $('#toastRoot');
+  if (!root) return;
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  root.appendChild(toast);
+  window.setTimeout(() => {
+    toast.remove();
+  }, 3500);
+}
+
+function initFaqAccordion() {
+  const triggers = document.querySelectorAll('.accordion-trigger');
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      trigger.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      const panelId = trigger.getAttribute('aria-controls');
+      const panel = panelId ? document.getElementById(panelId) : null;
+      if (!panel) return;
+      panel.hidden = expanded;
+    });
+  });
 }
 
 function saveWaitlistLocal(payload) {
@@ -306,6 +375,7 @@ async function submitWaitlist(event) {
   $('#waitlistEmail').value = '';
   $('#waitlistSuccess').textContent = 'Perfetto! Ti avviseremo appena disponibile e riceverai il 50% di sconto per i primi 3 mesi.';
   $('#waitlistSuccess').classList.remove('hidden');
+  showToast('Richiesta inviata: promo 50% per i primi 3 mesi attivata.');
 }
 
 function attachUI() {
@@ -352,6 +422,8 @@ function attachUI() {
   if (waitlistForm) {
     waitlistForm.addEventListener('submit', submitWaitlist);
   }
+
+  initFaqAccordion();
 }
 
 window.addEventListener('load', init);
